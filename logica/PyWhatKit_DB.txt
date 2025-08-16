@@ -1,0 +1,55 @@
+Date: 2/7/2025
+Time: 19:0
+Phone Number: +573165641004
+Message: Hola desde pywhatkit
+--------------------
+Date: 2/7/2025
+Time: 19:3
+Phone Number: +573165641004
+Message: Hola desde pywhatkit
+--------------------
+Date: 2/7/2025
+Time: 19:16
+Phone Number: +573165641004
+Message: Hola desde pywhatkit
+--------------------
+Date: 2/7/2025
+Time: 19:30
+Phone Number: +573165641004
+Message: Hola desde pywhatkit
+--------------------
+Date: 2/7/2025
+Time: 19:31
+Phone Number: +573125354656
+Message: Hola desde pywhatkit
+--------------------
+Date: 2/7/2025
+Time: 19:32
+Phone Number: +573025419835
+Message: Hola desde pywhatkit
+--------------------
+Date: 2/7/2025
+Time: 22:54
+Phone Number: +573165641004
+Message: weyyyyyyyyyyyyyyyyyyyyy
+--------------------
+Date: 2/7/2025
+Time: 22:55
+Phone Number: +573142780559
+Message: weyyyyyyyyyyyyyyyyyyyyy
+--------------------
+Date: 2/7/2025
+Time: 22:56
+Phone Number: +573025419835
+Message: weyyyyyyyyyyyyyyyyyyyyy
+--------------------
+Date: 3/7/2025
+Time: 12:41
+Phone Number: +573165641004
+Message: weyyyyyyyyyyyyyyyyyyyyy
+--------------------
+Date: 3/7/2025
+Time: 12:42
+Phone Number: +573142780559
+Message: weyyyyyyyyyyyyyyyyyyyyy
+--------------------

@@ -1,0 +1,39 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #b4b4b4;
+    text-align: center;
+    padding-top: 100px;
+}
+
+.contenedor {
+    background-color: #ffffff;
+    margin: auto;
+    padding: 30px;
+    border-radius: 15px;
+    width: 400px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+#mensaje {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+#temporizador {
+    font-size: 32px;
+    color: #e74c3c;
+    font-weight: bold;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+.logo-whatsapp {
+    width: 100px;
+    height: auto;
+    margin-bottom: 20px;
+}

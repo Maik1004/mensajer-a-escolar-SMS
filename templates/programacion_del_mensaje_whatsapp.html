@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Programación de Mensaje</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='programacion_del_mensaje.css') }}">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='img/tuerca.ico') }}">
+</head>
+<body>
+
+<a href="{{ url_for('menu_principal') }}" class="btn">← Volver al menú</a>
+
+    <div class="form-container">
+        <h1>Programar Mensaje SMS</h1>
+
+        <!-- ✅ Este formulario hará POST al servidor y activará la función guardar_configuracion() -->
+        <form method="POST" action="{{ url_for('programacion_mensaje_whatsapp') }}">
+            <label>Grado:</label>
+            <select name="grado" required onchange="actualizarSalones()">
+                <option value="">Seleccione</option>
+                {% for grado in salones_por_grado %}
+                    <option value="{{ grado }}">{{ grado }}</option>
+                {% endfor %}
+            </select>
+
+            <label>Salón:</label>
+            <select name="salon" id="salon-select" required>
+                <option value="">Seleccione un salón</option>
+            </select>
+
+            <label>Fecha:</label>
+            <div class="fecha-select">
+                <select name="dia" required>
+                    {% for d in range(1, 32) %}
+                        <option value="{{ d }}">{{ d }}</option>
+                    {% endfor %}
+                </select>
+                <select name="mes" required>
+                    {% for m in range(1, 13) %}
+                        <option value="{{ m }}">{{ m }}</option>
+                    {% endfor %}
+                </select>
+                <select name="anio" required>
+                    {% for y in range(2024, 2030) %}
+                        <option value="{{ y }}">{{ y }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <label>Hora:</label>
+            <div class="fecha-select">
+                <select name="hora" required>
+                    {% for h in range(0, 24) %}
+                        <option value="{{ "%02d"|format(h) }}">{{ "%02d"|format(h) }}</option>
+                    {% endfor %}
+                </select>
+                :
+                <select name="minuto" required>
+                    {% for m in range(0, 60) %}
+                        <option value="{{ "%02d"|format(m) }}">{{ "%02d"|format(m) }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <button type="submit">Guardar programación</button>
+
+            <!-- Mensaje de éxito o error -->
+            {% if mensaje_guardado %}
+                <p class="exito">{{ mensaje_guardado }}</p>
+            {% endif %}
+            {% if error %}
+                <p class="error">{{ error }}</p>
+            {% endif %}
+        </form>
+    </div>
+
+    <!-- Script de salones por grado -->
+    <script>
+        const salones = {{ salones_por_grado | tojson }};
+        function actualizarSalones() {
+            const grado = document.querySelector('select[name="grado"]').value;
+            const salonSelect = document.getElementById("salon-select");
+            salonSelect.innerHTML = '<option value="">Seleccione un salón</option>';
+            if (salones[grado]) {
+                salones[grado].forEach(salon => {
+                    let option = document.createElement("option");
+                    option.value = salon;
+                    option.text = salon;
+                    salonSelect.appendChild(option);
+                });
+            }
+        }
+    </script>
+
+    {% if mensaje_alerta %}
+        <script>
+            alert("{{ mensaje_alerta }}");
+            {% if redirigir %}
+                setTimeout(function() {
+                    window.location.href = "{{ url_for('escribir_mensaje_whatsapp') }}";
+                }, 1000);
+            {% endif %}
+        </script>
+    {% endif %}
+</body>
+</html>

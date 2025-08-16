@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Menú SMS</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='menu.css') }}">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='img/SMS2.ico') }}">
+</head>
+<body>
+
+    <div class="menu-container">
+        <img src="{{ url_for('static', filename='img/login.png') }}" alt="Logo" class="logo">
+
+        <h1>Menú Principal de SMS</h1>
+
+        <div class="botones-menu">
+            <a href="{{ url_for('programacion_mensaje') }}" class="btn verde">Enviar SMS</a>
+            <a href="{{ url_for('programacion_mensaje_whatsapp') }}" class="btn verde">Enviar SMS por Whatsapp</a>
+            <a href="{{ url_for('historial') }}" class="btn azul">Historial de mensajería</a>
+            <a href="{{ url_for('configuracion_salones') }}" class="btn amarillo">Configuración de salones</a>
+            <a href="{{ url_for('registro') }}" class="btn morado">Registrar Usuario</a>
+            <a href="{{ url_for('login') }}" class="btn rojo">Salir</a>
+
+        </div>
+    </div>
+</body>
+</html>

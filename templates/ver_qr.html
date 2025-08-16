@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>QR de WhatsApp</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='ver_configuracion.css') }}">
+</head>
+<body>
+    <div class="container">
+        <a href="{{ url_for('ver_configuracion') }}" class="btn">← Volver</a>
+        <h1>Conectar con WhatsApp</h1>
+
+        {% if qr_disponible %}
+            <p>Escanea el siguiente código QR con tu aplicación de WhatsApp para conectar:</p>
+            <img src="{{ url_for('static', filename='qr.png') }}" alt="QR de WhatsApp" width="300">
+            <br>
+            <form method="get">
+                <button onclick="location.reload()" class="btn">🔁 Recargar QR</button>
+            </form>
+        {% else %}
+            <p><strong>⚠️ QR aún no disponible.</strong> Asegúrate de que el servicio <code>template/wa_qr.js</code> esté corriendo.</p>
+            <button onclick="location.reload()" class="btn">🔁 Reintentar</button>
+        {% endif %}
+    </div>
+</body>
+</html>

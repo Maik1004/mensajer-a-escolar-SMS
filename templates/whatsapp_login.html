@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Iniciar sesión en WhatsApp</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='whatsapp_login.css') }}">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='img/whatsapp.png') }}">
+</head>
+<body>
+    <div class="contenedor">
+        <!-- Imagen decorativa de WhatsApp -->
+        <img src="{{ url_for('static', filename='img/whatsapp.png') }}" alt="WhatsApp" class="logo-whatsapp">
+
+        <h1>Inicia sesión en WhatsApp</h1>
+        <p id="mensaje">📲 Logéate en WhatsApp. Si ya estás logeado, puedes ignorar este mensaje.</p>
+        <p id="temporizador">01:00</p>
+    </div>
+
+    <script src="{{ url_for('static', filename='whatsapp_login.js') }}"></script>
+</body>
+</html>

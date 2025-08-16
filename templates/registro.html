@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro de Usuario</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='registro.css') }}">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='img/proteger.png') }}">
+</head>
+<body>
+    <div class="registro-container">
+        <h1>Registro de Usuario</h1>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% for category, message in messages %}
+                <div class="alert {{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endwith %}
+
+        <form action="{{ url_for('registro') }}" method="post">
+            <label>Usuario:</label>
+            <input type="text" name="usuario">
+
+            <label>Email:</label>
+            <input type="email" name="email">
+
+            <label>Contraseña:</label>
+            <input type="password" name="contrasena">
+
+            <label>Confirmar Contraseña:</label>
+            <input type="password" name="confirmar">
+
+            <label>Usuario JustVoip:</label>
+            <input type="text" name="usuario_justvoip">
+
+            <label>Contraseña JustVoip:</label>
+            <input type="password" name="contrasena_justvoip">
+
+            <label>Número JustVoip:</label>
+            <input type="text" name="numero_justvoip" placeholder="+57...">
+
+            <button type="submit">Registrar</button>
+        </form>
+
+        <a href="{{ url_for('menu_principal') }}" class="volver">← Volver al menú</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Contactos Grado {{ grado }} - Salón {{ salon }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='mostrar.css') }}">
+</head>
+<body>
+    <h2>Estudiantes del Grado {{ grado }} - Salón {{ salon }}</h2>
+
+    {% if estudiantes %}
+    <table>
+        <tr>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Teléfono Padres</th>
+            <th>Grado</th>
+            <th>Salón</th>
+        </tr>
+        {% for e in estudiantes %}
+        <tr>
+            <td>{{ e[0] }}</td>
+            <td>{{ e[1] }}</td>
+            <td>{{ e[2] }}</td>
+            <td>{{ e[3] }}</td>
+            <td>{{ e[4] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+        <p>No hay estudiantes registrados en este grupo.</p>
+    {% endif %}
+
+    <a href="{{ url_for('configuracion_salones') }}" class="volver-btn">⬅ Volver a Contactos</a>
+</body>
+</html>

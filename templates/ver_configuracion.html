@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Configuración Programada</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='ver_configuracion.css') }}">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='img/ver_configuracion.ico') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Configuración Programada</h1>
+
+        <a href="{{ url_for('menu_principal') }}" class="btn_menu">← Volver al menú</a>
+      <div class="contenedor-boton">
+    <a href="{{ url_for('login_whatsapp') }}" target="_blank" class="btn btn-whatsapp">
+        <img src="{{ url_for('static', filename='img/whatsapp.png') }}" alt="WhatsApp" class="icono-whatsapp">
+        Enviar por WhatsApp
+    </a>
+</div>
+
+
+
+
+
+        {% if datos %}
+            <div class="info">
+                <p><strong>Grado:</strong> {{ datos.grado }}</p>
+                <p><strong>Salón:</strong> {{ datos.salon }}</p>
+                <p><strong>Mensaje:</strong> {{ datos.mensaje if datos.mensaje else "(vacío)" }}</p>
+
+                <p><strong>Fecha de envío:</strong>
+                    {{ datos.fecha.day }}/{{ datos.fecha.month }}/{{ datos.fecha.year }}
+                    {{ datos.fecha.hour }}:{{ "%02d"|format(datos.fecha.minute) }}
+                </p>
+
+                <p><strong>Fecha de guardado:</strong> {{ datos.fecha_guardado }}</p>
+            </div>
+        {% else %}
+            <p>No hay configuración programada.</p>
+        {% endif %}
+    </div>
+
+
+
+</body>
+</html>

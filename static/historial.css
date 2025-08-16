@@ -1,0 +1,78 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #e6e8eb; /* gris claro más oscuro que antes */
+    margin: 20px;
+    color: #333;
+}
+
+.container {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 16px; /* más redondeado */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: box-shadow 0.3s ease;
+}
+
+.container:hover {
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+
+/* Tabla refinada y responsiva */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    border-radius: 12px;
+    overflow: hidden;
+    font-size: 16px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    transition: transform 0.2s ease;
+}
+
+table:hover {
+    transform: scale(1.01);
+}
+
+/* Encabezados de tabla con verde más oscuro */
+th {
+    background-color: #388e3c; /* verde oscuro */
+    color: white;
+    padding: 12px;
+}
+
+th, td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+}
+
+/* Filas con efecto hover dinámico */
+tr:hover {
+    background-color: #dfeffc; /* azul muy claro */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Botón con color rojo más oscuro y dinámico */
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #c0392b; /* rojo oscuro */
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #a93226;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+}
+
+.btn:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}

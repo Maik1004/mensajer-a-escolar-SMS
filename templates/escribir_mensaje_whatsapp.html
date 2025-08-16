@@ -1,0 +1,111 @@
+ <!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Escribir Mensaje</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='escribir_mensaje.css') }}">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='img/2.ico') }}">
+</head>
+<body>
+
+<a href="{{ url_for('menu_principal') }}" class="btn">← Volver al menú</a>
+
+    <div class="main-container">
+
+        <!-- Formulario para mensaje -->
+<div class="form-container">
+    <h2>Escribir Notificación</h2>
+    <form id="formularioMensaje" method="POST" action="{{ url_for('mensaje_whatsapp') }}">
+        <label for="mensaje">Escriba el mensaje:</label>
+        <textarea name="mensaje" id="mensaje" required></textarea>
+        <button type="submit" onclick="confirmarEnvio(event)">Enviar Mensaje</button>
+    </form>
+</div>
+
+
+        <!-- Visualización de configuración -->
+        <div class="config-container">
+            <h2>Configuración Actual</h2>
+            {% if config %}
+                <ul id="datos-config">
+                    <li><strong>Grado:</strong> <span id="grado">{{ config.grado }}</span></li>
+                    <li><strong>Salón:</strong> <span id="salon">{{ config.salon }}</span></li>
+                    {% if config.fecha %}
+                        <li><strong>Fecha:</strong> <span id="fecha">{{ config.fecha.strftime('%d/%m/%Y %H:%M') }}</span></li>
+                    {% else %}
+                        <li><strong>Fecha:</strong> <span id="fecha">No disponible</span></li>
+                    {% endif %}
+                    <li><strong>Guardado el:</strong> <span id="fecha_guardado">{{ config.fecha_guardado }}</span></li>
+                </ul>
+            {% else %}
+                <p>No hay configuración cargada.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    {% if mensaje_confirmacion %}
+    <script>
+        alert(`{{ mensaje_confirmacion }}`);
+        window.location.href = "{{ url_for('ver_configuracion_whatsapp') }}";  // Redirige tras aceptar
+    </script>
+{% endif %}
+
+
+    <script>
+        function confirmarEnvio() {
+            const mensaje = document.getElementById("mensaje").value.trim();
+            const grado = document.getElementById("grado")?.textContent || "N/A";
+            const salon = document.getElementById("salon")?.textContent || "N/A";
+            const fecha = document.getElementById("fecha")?.textContent || "N/A";
+            const fecha_guardado = document.getElementById("fecha_guardado")?.textContent || "N/A";
+
+            if (!mensaje) {
+                alert("Por favor, escribe un mensaje antes de enviar.");
+                return false;
+            }
+
+            const confirmacion = `¿Estás seguro de enviar el siguiente mensaje?\n\n` +
+                `Mensaje:\n${mensaje}\n\n` +
+                `Grado: ${grado}\nSalón: ${salon}\nFecha programada: ${fecha}\nConfiguración guardada el: ${fecha_guardado}`;
+
+            return confirm(confirmacion); // Solo se enviará si el usuario acepta
+        }
+    </script>
+
+<script>
+    function confirmarEnvio(event) {
+        event.preventDefault();  // Detiene el envío automático
+
+        const mensaje = document.getElementById("mensaje").value.trim();
+        if (!mensaje) {
+            alert("El mensaje está vacío.");
+            return;
+        }
+
+        const grado = "{{ config.grado if config else 'N/A' }}";
+        const salon = "{{ config.salon if config else 'N/A' }}";
+        const fecha = `{{ config.fecha.strftime('%d/%m/%Y %H:%M') if config and config.fecha else 'No definida' }}`;
+
+        const confirmar = confirm(
+            `¿Está seguro de enviar este mensaje?\n\n` +
+            `Mensaje: "${mensaje}"\n` +
+            `Grado: ${grado}\n` +
+            `Salón: ${salon}\n` +
+            `Fecha: ${fecha}`
+        );
+
+        if (confirmar) {
+            document.getElementById("formularioMensaje").submit();
+
+            // Redirige después de un pequeño delay (asegura que se guarde primero)
+            setTimeout(() => {
+                window.location.href = "{{ url_for('ver_configuracion_whatsapp') }}";
+            }, 1000);
+        }
+    }
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestión de Contactos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='contactos_padres.css') }}">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='img/contacto.ico') }}">
+</head>
+<body>
+<a href="{{ url_for('menu_principal') }}" class="btn">← Volver al menú</a>
+
+<div class="container">
+    <h1>Gestión de Contactos - Padres de Familia</h1>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% for category, message in messages %}
+            <div class="alert {{ category }}">{{ message }}</div>
+        {% endfor %}
+    {% endwith %}
+
+    <!-- Formulario de búsqueda -->
+    <div class="section">
+        <h2>Seleccionar Grado y Salón</h2>
+        <form action="/mostrar" method="post">
+            <label>Grado:</label>
+            <select name="grado" id="grado_busqueda" onchange="actualizarSalones('grado_busqueda', 'salon_busqueda')" required>
+                <option value="">Seleccione</option>
+                {% for grado in salones_por_grado.keys() %}
+                    <option value="{{ grado }}">{{ grado }}</option>
+                {% endfor %}
+            </select>
+
+            <label>Salón:</label>
+            <select name="salon" id="salon_busqueda" required>
+                <option value="">Seleccione un salón</option>
+            </select>
+
+            <button type="submit">Mostrar Contactos</button>
+        </form>
+    </div>
+
+    {% if estudiantes %}
+    <div class="section">
+        <h2>Contactos Encontrados</h2>
+        <table>
+            <tr>
+                <th>Estudiante</th>
+                <th>Acudiente</th>
+                <th>Teléfono del Padre</th>
+                <th>Grado</th>
+                <th>Salón</th>
+            </tr>
+            {% for e in estudiantes %}
+            <tr>
+                <td>{{ e[0] }}</td>
+                <td>{{ e[1] }}</td>
+                <td>{{ e[2] }}</td>
+                <td>{{ e[3] }}</td>
+                <td>{{ e[4] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    {% endif %}
+
+    <div class="grid">
+        <!-- Agregar contacto -->
+        <div class="section">
+            <h2>Agregar Contacto</h2>
+            <form action="/agregar" method="post">
+                <label>Nombre del Estudiante:</label>
+                <input type="text" name="nombre" required>
+
+                <label>Nombre del Acudiente:</label>
+                <input type="text" name="apellido" required>
+
+                <label>Teléfono del Padre:</label>
+                <input type="text" name="numero" required>
+
+                <label>Grado:</label>
+                <select name="grado" id="grado_agregar" onchange="actualizarSalones('grado_agregar', 'salon_agregar')" required>
+                    <option value="">Seleccione un grado</option>
+                    {% for grado in salones_por_grado.keys() %}
+                        <option value="{{ grado }}">{{ grado }}</option>
+                    {% endfor %}
+                </select>
+
+                <label>Salón:</label>
+                <select name="salon" id="salon_agregar" required>
+                    <option value="">Seleccione un salón</option>
+                </select>
+
+                <button type="submit" class="green">Agregar</button>
+            </form>
+        </div>
+
+        <!-- Eliminar contacto -->
+        <div class="section">
+            <h2>Eliminar Contacto</h2>
+            <form action="/eliminar" method="post">
+                <label>Teléfono a eliminar:</label>
+                <input type="text" name="numero" required>
+                <button type="submit" class="red">Eliminar</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Script dinámico único y reutilizable -->
+<script>
+    const salonesPorGrado = {{ salones_por_grado | tojson }};
+
+    function actualizarSalones(gradoId, salonId) {
+        const gradoSeleccionado = document.getElementById(gradoId).value;
+        const salonSelect = document.getElementById(salonId);
+
+        salonSelect.innerHTML = '<option value="">Seleccione un salón</option>';
+
+        if (gradoSeleccionado in salonesPorGrado) {
+            salonesPorGrado[gradoSeleccionado].forEach(salon => {
+                const option = document.createElement('option');
+                option.value = salon;
+                option.textContent = salon;
+                salonSelect.appendChild(option);
+            });
+        }
+    }
+</script>
+
+</body>
+</html>

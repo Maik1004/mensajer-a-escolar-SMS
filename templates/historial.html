@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Historial de Mensajes</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='historial.css') }}">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='img/SMS.ico') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Historial de Mensajes</h1>
+        <a href="{{ url_for('menu_principal') }}" class="btn">← Volver al menú</a>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Grado</th>
+                    <th>Salón</th>
+                    <th>Mensaje</th>
+                    <th>Fecha</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for msg in datos %}
+                    <tr onclick="mostrarDetalle(`{{ msg.mensaje | replace('`', ' ') | e }}`, `{{ msg.fecha }}`)">
+                        <td>{{ msg.id }}</td>
+                        <td>{{ msg.grado }}</td>
+                        <td>{{ msg.salon }}</td>
+                        <td>{{ msg.mensaje[:75] }}{% if msg.mensaje|length > 75 %}...{% endif %}</td>
+                        <td>{{ msg.fecha }}</td>
+                        <td>{{ msg.estado }}</td>
+                    </tr>
+                {% else %}
+                    <tr><td colspan="6">No hay datos disponibles.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function mostrarDetalle(mensaje, fecha) {
+            alert("Mensaje completo:\n\n" + mensaje + "\n\nFecha de envío: " + fecha);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - Colegio</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='img/3.ico') }}">
+
+</head>
+<body>
+    <div class="login-container">
+        <img src="{{ url_for('static', filename='./img/login.png') }}" alt="Logo" class="logo">
+
+        <form method="POST" action="{{ url_for('login') }}">
+            <h2>Iniciar sesión</h2>
+
+            <label for="usuario">Usuario:</label>
+            <input type="text" name="usuario" id="usuario" required>
+
+            <label for="contrasena">Contraseña:</label>
+            <input type="password" name="contrasena" id="contrasena" required>
+
+            <button type="submit">Entrar</button>
+
+            {% if error %}
+                <p class="error">{{ error }}</p>
+            {% endif %}
+        </form>
+    </div>
+</body>
+</html>
